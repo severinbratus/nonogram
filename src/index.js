@@ -16,9 +16,9 @@ const EMPTY = null;
  */
 function Square(props) {
   const pseudoClick = event => {
-    if (event.buttons == 1)
+    if (event.buttons === 1)
       props.onClick(event)
-    else if (event.buttons == 2) {
+    else if (event.buttons === 2) {
       props.onContextMenu(event)
     }
   }
@@ -27,7 +27,7 @@ function Square(props) {
             onClick={props.onClick}
             onContextMenu={props.onContextMenu}
             onMouseOver={pseudoClick}
-            onMouseDown={pseudoClick}
+            /* onMouseDown={pseudoClick} */
     >
       {props.value}
     </button>
@@ -77,11 +77,15 @@ class Grid extends React.Component {
       return;
     }
 
+    if (squares[imageY][imageX] === CROSS) {
+      return;
+    }
+
     const squares = copy2d(this.state.squares);
     const errors = this.state.errors.slice();
 
     squares[imageY][imageX] = FILL;
-    if (this.props.level.squares[imageY][imageX] == WHITE) {
+    if (this.props.level.squares[imageY][imageX] === WHITE) {
       squares[imageY][imageX] = CROSS;
       // Save error coordinates in the state to highlight it in the UI.
       errors.push([imageY, imageX]);
@@ -135,9 +139,9 @@ class Grid extends React.Component {
    * Every square corresponding to a black square in the level must be filled.
    */
   gameWon() {
-    return filter2d(this.props.level.squares, x => x == BLACK).every(coords => {
+    return filter2d(this.props.level.squares, x => x === BLACK).every(coords => {
       const [imageY, imageX] = coords;
-      return this.state.squares[imageY][imageX] == FILL
+      return this.state.squares[imageY][imageX] === FILL
     })
   }
 
@@ -218,7 +222,7 @@ class Grid extends React.Component {
       <Square
         value={value}
         classNames={this.borderClassNames(gridY, gridX)
-                        .concat(value == FILL ? ["fill"] : [])
+                        .concat(value === FILL ? ["fill"] : [])
                         .concat(isError ? ["error"] : [])
                         .join(' ')}
         onClick={() => this.handleLeftClick(gridY - this.topMargin, gridX - this.leftMargin)}
@@ -318,7 +322,7 @@ class Game extends React.Component {
  * Shallow equality method for arrays.
  */
 Array.prototype.equalsArray = function(other) {
-  return this.length == other.length && other.every((x, i) => this.at(i) == x);
+  return this.length === other.length && other.every((x, i) => this.at(i) === x);
 }
 
 /**
