@@ -136,7 +136,7 @@ class Grid extends React.Component {
    */
   gameWon() {
     return filter2d(this.props.level.squares, x => x == BLACK).every(coords => {
-      const imageY = coords[0], imageX = coords[1];
+      const [imageY, imageX] = coords;
       return this.state.squares[imageY][imageX] == FILL
     })
   }
@@ -165,6 +165,8 @@ class Grid extends React.Component {
    */
   borderClassNames(i, j) {
     const names = []
+
+    // TODO: Refactor.
 
     // In the margins, borders of certain directions are omitted.
     // E.g. for row-wise clues, omit left and right borders to highlight horizontal direction.
@@ -255,7 +257,7 @@ class Grid extends React.Component {
       const clueIndex = this.leftMargin - 1 - j;
       const clues = this.rowClues[i - this.topMargin];
       if (clueIndex < clues.length) {
-        return clues[clueIndex];
+        return clues.at(-clueIndex-1);
       } else {
         return "";
       }
@@ -265,7 +267,7 @@ class Grid extends React.Component {
   render() {
     return (
       <div>
-        <h2>{this.props.level.title}</h2>
+        <h2>Currently solving {this.props.level.title}</h2>
         <h2 className="status">{this.getStatus()}</h2>
         {this.state.squares.map((row, i) => (
             <div className="grid-row">
@@ -294,7 +296,7 @@ class Game extends React.Component {
         <div className="game-grid">
         <h2>New Game:</h2>
           {levels.map((level, levelIndex) => (
-            <button onClick={() => this.changeLevel(levelIndex)}>{level.title}</button>
+            <button className="level" onClick={() => this.changeLevel(levelIndex)}>{level.title}</button>
           ))}
           <Grid
             level={this.state.level}
