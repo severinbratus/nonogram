@@ -77,7 +77,7 @@ class Grid extends React.Component {
       return;
     }
 
-    if (squares[imageY][imageX] === CROSS) {
+    if (this.state.squares[imageY][imageX] === CROSS) {
       return;
     }
 
