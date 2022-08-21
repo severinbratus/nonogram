@@ -1,17 +1,25 @@
-# Web-based nonogram puzzle
+## Web-based nonogram puzzle
 
-Includes 3 hard-coded puzzles ([source](https://nonogramskatana.blogspot.com/)). Right-click to fill in a square with black, left-click to mark it as empty. Right-clicking can be undone by right-clicking once again. Left-clicking cannot be undone, and too many mistakes will lead to a loss.
+Includes 3 hard-coded puzzles ([source](https://nonogramskatana.blogspot.com/)).
 
-Not mobile-responsive.
+Left-click to fill in a square with black.
+This cannot be undone, and too many mistakes will lead to a loss.
 
-## Installation
+Right-click to mark it as empty.
+This can be undone by right-clicking once again.
+
+### Demo
+
+![Nonogram image](/demo.png?raw=true)
+
+### Installation
 
 ``` sh
 cd nonogram
 npm install
 ```
 
-## Usage
+### Usage
 
 Start the server:
 
