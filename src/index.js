@@ -25,9 +25,9 @@ function Square(props) {
   return (
     <button className={`square ${props.classNames} `}
             onClick={props.onClick}
-            onContextMenu={props.onContextMenu}
+            onContextMenu={(event) => {event.preventDefault()}}
             onMouseOver={pseudoClick}
-            /* onMouseDown={pseudoClick} */
+            onMouseDown={pseudoClick}
     >
       {props.value}
     </button>
